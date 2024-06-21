@@ -1,0 +1,67 @@
+using System;
+public class Product
+{
+    public static int ProductCount { get; private set; } = 0;
+
+    public string Name { get; set; }
+    public decimal Price { get; set; }
+
+    public Product(string name, decimal price)
+    {
+        Name = name;
+        Price = price;
+        ProductCount++;
+    }
+    public virtual void DisplayInfo()
+    {
+        Console.WriteLine($"Назва: {Name}");
+        Console.WriteLine($"Ціна: {Price:C}");
+        Console.WriteLine($"Кількість створених продуктів: {ProductCount}");
+    }
+}
+
+public class ElectronicProduct : Product
+{
+    public int WarrantyPeriod { get; set; }
+
+    public ElectronicProduct(string name, decimal price, int warrantyPeriod)
+        : base(name, price)
+    {
+        WarrantyPeriod = warrantyPeriod;
+    }
+    public override void DisplayInfo()
+    {
+        base.DisplayInfo(); 
+        Console.WriteLine($"Гарантія: {WarrantyPeriod} місяців");
+    }
+}
+
+public class ClothingProduct : Product
+{
+    public string Size { get; set; }
+
+    public ClothingProduct(string name, decimal price, string size)
+        : base(name, price)
+    {
+        Size = size;
+    }
+
+    public override void DisplayInfo()
+    {
+        base.DisplayInfo(); 
+        Console.WriteLine($"Розмір: {Size}");
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        ElectronicProduct laptop = new ElectronicProduct("Ноутбук", 1000, 12);
+        ClothingProduct shirt = new ClothingProduct("Футболка", 20, "L");
+
+        laptop.DisplayInfo();
+        Console.WriteLine(); 
+        shirt.DisplayInfo();
+    }
+}
